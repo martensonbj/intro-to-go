@@ -1245,21 +1245,19 @@ Often, this will be a github location as your files will live in a github
 repository.
 
 ```go
-import {
-  "fmt"
-  "path/from/src/to/utils"
+package main
+
+// Use whatever path gets you from your src directory to the utils directory
+utils directory
+import (
+	"fmt"
+	"intro-to-go/utils"
+)
+
+func main() {
+	sum := utils.Add(1, 2, 3)
+	fmt.Println(sum)
 }
-
-func allPilots() int {
-  s1 := Squadron{name: "Squadron1", numberOfPilots: 10, currentTopGun: "Pilot1"}
-  s2 := Squadron{name: "Squadron2", numberOfPilots: 20, currentTopGun: "Pilot2"}
-  s3 := Squadron{name: "Squadron3", numberOfPilots: 12, currentTopGun: "Pilot3"}
-
-  totalPilots := utils.Add(s1.numberOfPilots, s2.numberOfPilots, s3.numberOfPilots)
-  return totalPilots
-}
-
-// remember to call allPilots() in main()
 ```
 
 ## Testing
@@ -1291,6 +1289,9 @@ In tests, the test name should start with `Test` followed by the name of the
 function you are testing. The only parameter passed into the test should be `t *testing.T`.
 
 Navigate to the `utils` directory and run `go test` and watch it pass!
+
+// To see a completed version of this section, checkout branch
+`02-packages-and-testing`
 
 ## Concurrency
 
