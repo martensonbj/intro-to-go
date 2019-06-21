@@ -36,7 +36,7 @@ type Person struct {
 }
 
 type AllPeople struct {
-	People []*Person `json:"results"`
+	People []Person `json:"results"`
 }
 
 func (p *Person) getHome() {
