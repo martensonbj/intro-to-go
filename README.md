@@ -1,4 +1,5 @@
 # Introduction To Go for Non-Go Developers
+
 _DinosaurJS 2019_
 
 ## Plan Of Attack
@@ -241,28 +242,13 @@ Attempting to modify a const will result in a run-time `panic`.
   - Run time errors happen after the program is compiled and a user or browser is trying to execute the code.
   - These events are things like trying to open a file or url that doesn't exist, running out of memory, trying to do something that syntactically is legit but isn't valid in real life (like dividing by 0).
 
-#### Scope
-
-Similar to JS, variables defined within a function can only be accessed within that function.
-
-To use a variable in other functions within the program, you must define it externally.
-
-```go
-func otherFunc() {
-	fmt.Println(pilot) // pilot will be undefined
-}
-
-func main() {
-  var pilot string = "Iceman"
-	fmt.Println(pilot)
-}
-```
-
 ### Data Structures
 
 1. For Loops
-2. Arrays
-3. Slices
+2. Ifs & Switches
+3. Arrays
+4. Slices
+5. Maps
 
 #### For Loops
 
@@ -334,7 +320,7 @@ const grabBag = ["banana", 45, true, "2"];
 **Go:**
 
 ```go
-var scores = [5]float64
+var scores [5]float64
 ```
 
 In JS, defining an array is pretty chill.
@@ -354,7 +340,7 @@ grabBag[0] = "hello"; // => ["hello"]
 ```
 
 ```go
-ages[0] = 5 // => [5, 0, 0, 0, 0]
+scores[0] = 5 // => [5, 0, 0, 0, 0]
 ```
 
 To add multiple elements, you could start by doing something like this:
@@ -382,8 +368,8 @@ What unexpected errors did you run into? How did you fix them?
 
 When looping over arrays, we can implement a different version of the basic for loop using the `range` keyword:
 
-```
-	var total float64
+```go
+  var total float64
   for i, value := range scores {
     total += value
   }
@@ -425,10 +411,14 @@ Instantiating a slice looks almost identical to instantiating an array, just wit
 
 Because slices are segments of an array, they must always be associated with an underlying array.
 
-To create a slice, you must use the `make` function with takes two arguments - what you are instantiating, and a length.
+To create an empty slice, you must use the `make` function with takes two arguments - what you are instantiating, and a length.
+
+Alternatively, if you know what will be in your slice, you can instantiate it using the curly braces.
 
 ```go
   scores := make([]float64, 5)
+  // OR
+  scores := []float64{1, 2, 3}
 ```
 
 Here, we are associating our slice called `scores` with an array containing 5 elements of type `float64`.
@@ -473,7 +463,6 @@ Copy:
 
     fmt.Println("after copy")
     fmt.Println(destination, destination)
-}
 ```
 
 > _TRY IT_
@@ -526,6 +515,7 @@ Remember the `make` function from our slice examples? Let's do that now.
 ```go
   var pilotsAges map[string]int
   pilotsAges = make(map[string]int)
+  // 	var pilotsAges = map[string]int{}
 
   pilotsAges["maverick"] = 30
   pilotsAges["goose"] = 27
@@ -536,8 +526,19 @@ Or, with the shorthand syntax:
 
 ```go
   pilotsAges := make(map[string]int)
+  // pilotsAges := map[string]int{}
   pilotsAges["maverick"] = 30
   pilotsAges["goose"] = 27
+  fmt.Println(pilotsAges)
+```
+
+And finally, creating the map in place:
+
+```go
+  pilotsAges := map[string]int{
+    "maverick": 30,
+    "goose": 27,
+  }
   fmt.Println(pilotsAges)
 ```
 
@@ -711,13 +712,13 @@ func main() {
 ```
 
 With the above code, once we hit the `panic()` function, our program will stop
-executing. Adding a `recover()` cleanup function will tell our pgoram what to do
+executing. Adding a `recover()` cleanup function will tell our program what to do
 when this happens.
 
 ```go
 func handlePanic() {
   // recover() will only return a value if there has been a panic
-  if r:= recover(); r != nil {
+  if r := recover(); r != nil {
     fmt.Println("We panicked but everything is fine. Panic message received:", r)
   }
 }
@@ -853,7 +854,7 @@ Another way to write this is:
 
 ```go
 type Pilot struct {
-  firstName, lastName, city string
+  firstName, lastName, callsign, aircraft string
 }
 ```
 
@@ -903,7 +904,7 @@ func main() {
 }
 ```
 
-Let's create another struct for our squadron of pilots
+Let's create another struct for a squadron of pilots
 
 ```go
 type Squadron struct {
