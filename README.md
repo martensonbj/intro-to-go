@@ -1,4 +1,5 @@
 # Introduction To Go for Non-Go Developers
+
 _DinosaurJS 2019_
 
 ## Plan Of Attack
@@ -20,7 +21,7 @@ Go fixes these problems by offering a strictly typed language that is pleasant t
 
 To do this, Go employs a lightweight but thorough type system, concurrency for handling multiple threads of work at the same time, automatic garbage collection, and strict dependency specs.
 
-The syntax of Go comes mainly from the C family, but works reduce the amount of code on the page and complexity around that code.
+The syntax of Go comes mainly from the C family, but works to reduce the amount of code on the page and complexity around that code.
 
 Obvious differences, coming from a language like JavaScript, include the following:
 
@@ -33,7 +34,7 @@ Obvious differences, coming from a language like JavaScript, include the followi
 
 Follow the instructions to [install go](https://golang.org/dl/) based on your system requirements.
 
-You can also use an only sandbox like [Repl.it](https://repl.it/languages/go), or the [Go Playground](https://play.golang.org/).
+You can also use a sandbox like [Repl.it](https://repl.it/languages/go), or the [Go Playground](https://play.golang.org/).
 
 Once you have Go installed and your GOPATH set up, create a `src` directory within your `go` directory.
 
@@ -57,14 +58,14 @@ func main() { //3
 
 1. Package Declaration
 
-- Packages are go's way of organizing and reusing code within an application
+- Packages are Go's way of organizing and reusing code within an application
 - These packages, like classes, expose different variables that can be used within a file
 - Every go program must have at least a `main` package
 - When you run `go install` Go creates a binary file which will call the `main()` function of your program
 
 2. Imported packages and libraries
 
-- Exposes code from built in go libraries, third party packages, or internally created packages your program needs
+- These expose code from built in go libraries, third party packages, or internally created packages your program needs (think: npm modules)
 - In this case, the package `fmt` comes with go and provides formatting methods for standard input and output
 - Also, it's pronounced "fumpt". 🙄
 
@@ -80,7 +81,7 @@ func main() { //3
 
 - Here we're using the `fmt` package and calling the method `Println`
 - This is similar to calling `console.log()` in JavaScript
-- Notice that Go uses double quotes
+- Notice that Go uses double quotes - this is an ALWAYS rule
 
 5. Closing curly brace
 
@@ -223,23 +224,23 @@ pilot := "Iceman"
 
 #### Var vs Const
 
-Consts, like in JavaSript, are variables who's values cannot be changed.
+Consts, like in JavaSript, are variables whose values cannot be changed.
 Attempting to modify a const will result in a run-time `panic`.
 
 **Sidebar**:
 
 - Panic vs Error:
 
-  - There are two main types of errors in Go. Panic, and Error.
+  - There are two main types of errors in Go: Panic, and Error.
 
-    Panic is used when the error is fatal to your program and there is nothing else that can be done to move forward.
+  - Panic is used when the error is fatal to your program and there is nothing else that can be done to move forward.
 
-  - Errors indicate that something bad happened, but it might be possible to continue running the program. More on this later.
+  - Error indicates that something bad happened, but it might be possible to continue running the program. More on this later.
 
 - RunTime vs CompileTime
-  - Reminder that compile time errors are events like syntax or typechecking errors. They occur when you as the developer are compiling your code.
-  - Run time errors happen after the program is compiled and a user or browser is trying to execute the code.
-  - These events are things like trying to open a file or url that doesn't exist, running out of memory, trying to do something that syntactically is legit but isn't valid in real life (like dividing by 0).
+  - Reminder that compile time errors involve syntax or type-checking. They occur when you, as the developer, are compiling your code.
+  - Run time errors happen after the program is compiled and a user or browser is trying to execute that code.
+  - Examples of a run time error: Trying to open a file or url that doesn't exist, running out of memory, trying to do something that syntactically is legit but isn't valid in real life (like dividing by 0).
 
 #### Scope
 
@@ -294,6 +295,9 @@ A shorter way to write this that looks more JS familiar is:
 
 #### If & Switch Statements
 
+If statements look similar to JavaScript, however in Go you exclude the
+parentheses around the conditional statement.
+
 An example if statement:
 
 ```go
@@ -326,9 +330,9 @@ Let's compare notes.
 **JavaScript:**
 
 ```javascript
-const grabBag = [];
+const grabBag = []
 // or
-const grabBag = ["banana", 45, true, "2"];
+const grabBag = ['banana', 45, true, '2']
 ```
 
 **Go:**
@@ -350,7 +354,7 @@ Go, however, has _opinions_. You must define a fixed length of elements, all of 
 To add elements into this array, both JavaScript and Go allow you to insert elements into a specific index location.
 
 ```javascript
-grabBag[0] = "hello"; // => ["hello"]
+grabBag[0] = 'hello' // => ["hello"]
 ```
 
 ```go
@@ -382,7 +386,7 @@ What unexpected errors did you run into? How did you fix them?
 
 When looping over arrays, we can implement a different version of the basic for loop using the `range` keyword:
 
-```
+```go
 	var total float64
   for i, value := range scores {
     total += value
@@ -415,7 +419,7 @@ This brings us to Slices.
 
 #### Slice
 
-A slice is a segment of an array. You still need a single type, access elements within it by their index, and a slice has a length, but unlike arrays their lengths can change.
+A slice is a segment of an array. You still need to have a consistent type within the slice, and can still access elements within it by their index, and a slice has a length, but unlike arrays their lengths can change.
 
 Instantiating a slice looks almost identical to instantiating an array, just without the specific length.
 
@@ -472,12 +476,12 @@ Copy:
     copy(destination, source)
 
     fmt.Println("after copy")
-    fmt.Println(destination, destination)
+    fmt.Println(destination, source)
 }
 ```
 
 > _TRY IT_
-> Run the example code from Copy block.
+> Run the example code from the Copy block.
 > What do you notice about the resulting data object?
 
 #### Maps
@@ -489,19 +493,19 @@ A map starts with the keyword `map`, followed by the key type, and the
 value type.
 
 ```go
- var pilotsAges map[string]int
+ var pilotAges map[string]int
 ```
 
-Here we are telling Go to create a map called `pilotsAges` which will have keys as
+Here we are telling Go to create a map called `pilotAges` which will have keys as
 strings, and values as integers.
 
 Let's build one with data in it:
 
 ```go
-  var pilotsAges map[string]int
-  pilotsAges["maverick"] = 30
-  pilotsAges["goose"] = 27
-  fmt.Println(pilotsAges)
+  var pilotAges map[string]int
+  pilotAges["maverick"] = 30
+  pilotAges["goose"] = 27
+  fmt.Println(pilotAges)
 ```
 
 > _TRY IT_
@@ -516,39 +520,48 @@ panic: assignment to entry in nil map
 The (run-time!) error here, indicated by the keyword `panic`, is telling us that
 we're trying to assign entries to a map that doesn't exist yet.
 
-Look at where we are declaring our `pilotsAges` variable. Here, we are telling
-go to create a variable called `pilotsAges` that will have a type of map with
+Look at where we are declaring our `pilotAges` variable. Here, we are telling
+go to create a variable called `pilotAges` that will have a type of map with
 particular key value pair types. We haven't actually set that variable to a
 value of any kind.
 
 Remember the `make` function from our slice examples? Let's do that now.
 
 ```go
-  var pilotsAges map[string]int
-  pilotsAges = make(map[string]int)
+  var pilotAges map[string]int
+  pilotAges = make(map[string]int)
 
-  pilotsAges["maverick"] = 30
-  pilotsAges["goose"] = 27
-  fmt.Println(pilotsAges)
+  pilotAges["maverick"] = 30
+  pilotAges["goose"] = 27
+  fmt.Println(pilotAges)
 ```
 
 Or, with the shorthand syntax:
 
 ```go
-  pilotsAges := make(map[string]int)
-  pilotsAges["maverick"] = 30
-  pilotsAges["goose"] = 27
-  fmt.Println(pilotsAges)
+  pilotAges := make(map[string]int)
+  pilotAges["maverick"] = 30
+  pilotAges["goose"] = 27
+  fmt.Println(pilotAges)
 ```
 
 Now we should see:
 `map[goose:27 maverick:30]`
 
+As with arrays, we can simplify creating our map using abbreviated syntax:
+
+```go
+pilotAges := map[string]int{
+  "maverick": 30,
+  "goose": 27,
+}
+```
+
 To ask for a specific value from a map, you'd use syntax similar to interacting
 with objects in JS:
 
 ```go
-pilotsAges["maverick"] // ==> 30
+pilotAges["maverick"] // ==> 30
 ```
 
 > _TRY IT_
@@ -559,36 +572,27 @@ within a map actually returns two elements: the value (if it exists), and a
 boolean for whether or not that value existed.
 
 ```go
-  icemansAge, ok := pilotsAges["iceman"]
-  fmt.Println(icemansAge, ok)
+  icemanAge, ok := pilotAges["iceman"]
+  fmt.Println(icemanAge, ok)
 ```
 
 This makes it easy to add logic around checking for null values within our
 program using an if statement:
 
 ```go
-  if icemansAge, ok :=  pilotsAges["iceman"]; ok {
-    fmt.Println(icemansAge)
+  if icemanAge, ok :=  pilotAges["iceman"]; ok {
+    fmt.Println(icemanAge)
   } else {
     fmt.Println("I don't know what you want from me")
   }
 ```
 
-First, we create the two variables `icemansAge` and `ok` inside our if
+First, we create the two variables `icemanAge` and `ok` inside our if
 statement and set them to the two elements we get back from a lookup in our map.
 
 Then, we check what boolean we got back in our `ok` variable. The code within
 the first block will fire only if `ok` returns true, otherwise our if block will
 continue to the else block.
-
-As with arrays, we can simplify creating our map using abbreviated syntax:
-
-```go
-pilotsAges := map[string]int{
-  "maverick": 30,
-  "goose": 27,
-}
-```
 
 #### Functions
 
@@ -691,15 +695,16 @@ Deferred functions are also run even if a runtime panic occurs.
 
 Panic will be called during a run time error and fatally kill execution of a
 program.
+
 Recover will tell Go what to do when that happens, returning what was passed to `panic`.
 
 Note that in order for recover to do its job it must be paired with `defer`, which will fire even after a `panic`, otherwise `panic` completely shuts down the execution of a program.
 
 ```go
 func doThings() {
-  for i := 0; i< 3; i++  {
+  for i := 0; i < 5; i++  {
     fmt.Println(i)
-    if i ==2 {
+    if i == 2 {
       panic("PANIC!")
     }
   }
@@ -711,7 +716,7 @@ func main() {
 ```
 
 With the above code, once we hit the `panic()` function, our program will stop
-executing. Adding a `recover()` cleanup function will tell our pgoram what to do
+executing. Adding a `recover()` cleanup function will tell our program what to do
 when this happens.
 
 ```go
@@ -950,7 +955,7 @@ to the original variable in memory.
 ```go
 func introduceSquadron( *Squadron) string {...
 
-func introducePlayer(p *Pilot) string {...
+func introducePilot(p *Pilot) string {...
 
 // in main()
 pilotIntro := introducePilot(&p)
@@ -966,10 +971,10 @@ We can reduce some repetition by implementing a `method` that we can call on our
 structs, instead of an explicit function.
 
 ```go
- func (p *Pilot) introduce() string {
-	p := Pilot{firstName: "Pete", lastName: "Mitchell", aircraft: "f14", callsign: "Maverick"}
+func (p *Pilot) introduce() string {
+	intro := fmt.Sprintf("Introducing %s %s, callsign %s, flying the %s", p.firstName, p.lastName, p.callsign, p.aircraft)
 	return intro
- }
+}
 ```
 
 The main difference between the function signatures is that now, instead of
@@ -1048,7 +1053,7 @@ If you think of structs as a set of properties within a type, interfaces can be
 thought of as a set of methods that define a type.
 
 ```go
-type TopGunEntity interface {
+type TopGunIntroducer interface {
   introduce() string
 }
 ```
@@ -1059,13 +1064,13 @@ interface, and then the actual keyword `interface`.
 Within the curly braces we list a set of methods that are associated with our interface type and the type
 those methods should return.
 
-Our interface `TopGunEntity` includes any type that has a method named `introduce()`, which in our program includes `Pilot` and `Squadron`. Any type that defines this method is said to `satisfy` the `TopGunEntity` interface.
+Our interface `TopGunIntroducer` includes any type that has a method named `introduce()`, which in our program includes `Pilot` and `Squadron`. Any type that defines this method is said to `satisfy` the `TopGunIntroducer` interface.
 
 Next, create a function that can be called on any types that satisfy our
-`TopGunEntity` interface.
+`TopGunIntroducer` interface.
 
 ```go
-func introduceSomething(t TopGunEntity) {
+func introduceSomething(t TopGunIntroducer) {
   fmt.Println(t)
   fmt.Println(t.introduce())
 }
@@ -1077,7 +1082,7 @@ Then, let's use our interface to introduce all of the entities in our program so
 func main() {
   p := Pilot{firstName: "Pete", lastName: "Mitchell", aircraft: "f14", callsign: "Maverick"}
 	s := Squadron{name: "Top Gun", numberOfPilots: 10, currentTopGun: "Iceman"}
-  entities := []TopGunEntity{&p, &s}
+  entities := []TopGunIntroducer{&p, &s}
   for _, entity := range entities {
     introduce(entity)
   }
@@ -1119,11 +1124,11 @@ type Squadron struct {
 	currentTopGun  string
 }
 
-type TopGunEntity interface {
+type TopGunIntroducer interface {
   introduce() string
 }
 
-func introduceSomething(t TopGunEntity) {
+func introduceSomething(t TopGunIntroducer) {
   fmt.Println(t)
   fmt.Println(t.introduce())
 }
@@ -1142,7 +1147,7 @@ func (s *Squadron) introduce() string {
 func main() {
 	p := Pilot{firstName: "Pete", lastName: "Mitchell", aircraft: "f14", callsign: "Maverick"}
 	s := Squadron{name: "Top Gun", numberOfPilots: 10, currentTopGun: "Iceman"}
-    entities := []TopGunEntity{&p, &s}
+    entities := []TopGunIntroducer{&p, &s}
   for _, entity := range entities {
     introduceSomething(entity)
   }
@@ -1296,7 +1301,7 @@ Navigate to the `utils` directory and run `go test` and watch it pass!
 Goroutine: From [the docs](https://tour.golang.org/concurrency/1), a goroutine is a lightweight threat managed by the Go runtime.
 
 A goroutine is indicated by adding the keyword `go` before the name of a
-function. This will tell Go to fire up a new gorouting running that function on
+function. This will tell Go to fire up a new goroutine running that function on
 a separate thread.
 
 ```go
@@ -1329,7 +1334,7 @@ If all of the code within a function is a go routine:
 
 Everything will be non blocking, and nothing will finish execution. In order to fix this, we need to synchronize our goroutines, using the package [sync](https://golang.org/pkg/sync/).
 
-To start, create a variable that defines a `WaitGroup` - meaning a set of go routines you want execute to completion before moving forward in your program.
+To start, create a variable that sets up a `WaitGroup` - meaning a set of go routines you want to execute to completion before moving forward in your program.
 
 ```go
 package main
